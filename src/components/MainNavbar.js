@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const MainNavbar = () => {
   const [activeMenu, setActiveMenu] = useState(null);
   const [isAchievementsOpen, setIsAchievementsOpen] = useState(false);
   const navbarRef = useRef(null);
+  const navigate = useNavigate();
 
   const toggleMenu = (menuName) => {
     setActiveMenu((prevMenu) => (prevMenu === menuName ? null : menuName));
@@ -12,6 +13,11 @@ const MainNavbar = () => {
 
   const toggleAchievements = () => {
     setIsAchievementsOpen((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    // Logic for clearing session or authentication (if applicable) can go here
+    navigate('/');
   };
 
   // Close dropdowns when clicking outside
@@ -37,7 +43,7 @@ const MainNavbar = () => {
         </div>
 
         {/* Desktop Navbar */}
-        <ul className="hidden md:flex space-x-6">
+        <ul className="hidden md:flex space-x-6 items-center">
           <li>
             <Link to="/" className="hover:text-indigo-200 transition duration-200">Home</Link>
           </li>
@@ -125,6 +131,13 @@ const MainNavbar = () => {
           </li>
           <li>
             <Link to="/events" className="hover:text-indigo-200 transition duration-200">Events</Link>
+          </li>
+
+          {/* Logout Button */}
+          <li>
+            <button onClick={handleLogout} className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md text-white font-semibold">
+              Logout
+            </button>
           </li>
         </ul>
 
